@@ -19,10 +19,12 @@ class Board extends React.Component {
             labels: [],
             guessedLabels: [],
             round: 0,
+            ongoing: false,
         }
         this.addLabel = this.addLabel.bind(this);
         this.checkProgression = this.checkProgression.bind(this);
         this.progressRound = this.progressRound.bind(this);
+        this.shuffle = this.shuffle.bind(this);
         this.guessTop = this.guessTop.bind(this);
         this.passTop = this.passTop.bind(this);
     }
@@ -41,13 +43,24 @@ class Board extends React.Component {
             this.progressRound();
             const labels = this.state.labels.slice();
             const guessedLabels = this.state.guessedLabels.slice();
-            this.setState({ labels: guessedLabels, guessedLabels: labels });
+            this.setState({ labels: guessedLabels, guessedLabels: labels }, this.shuffle);
         }
     }
 
     progressRound() {
         let round = this.state.round + 1;
         this.setState({ round: round });
+    }
+
+    shuffle() {
+        const labels = this.state.labels.slice();
+        for (let i = labels.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = labels[i];
+            labels[i] = labels[j];
+            labels[j] = temp;
+        }
+        this.setState({ labels: labels });
     }
 
     guessTop() {

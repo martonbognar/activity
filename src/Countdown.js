@@ -6,6 +6,7 @@ class Countdown extends React.Component {
         this.state = {
             seconds: props.seconds,
             callback: props.callback,
+            active: false,
         }
 
         this.decreaseTime = this.decreaseTime.bind(this);
@@ -14,10 +15,11 @@ class Countdown extends React.Component {
     decreaseTime() {
         if (this.state.seconds !== 0) {
             let seconds = this.state.seconds - 1;
-            this.setState({ seconds: seconds });
+            this.setState({ seconds: seconds, active: true });
             setTimeout(this.decreaseTime, 1000);
         } else {
             this.state.callback();
+            this.setState({ seconds: 30, active: false });
         }
     }
 
@@ -25,7 +27,7 @@ class Countdown extends React.Component {
         return (
             <div>
                 {this.state.seconds} seconds remainig.
-          <input type="submit" value="Start" onClick={this.decreaseTime} />
+                {!this.state.active && <input type="submit" value="Start" onClick={this.decreaseTime} />}
             </div>
         );
     }
