@@ -1,0 +1,4 @@
+- only show words if the round is active
+- only show current word
+- duplicate check
+- counter should stop if round ends
