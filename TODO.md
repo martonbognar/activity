@@ -1,1 +1,2 @@
-- counter should stop if round ends
+- don't allow pass in first round
+- nicer solution for counter reset

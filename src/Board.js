@@ -55,6 +55,7 @@ class Board extends React.Component {
 
     checkProgression() {
         if (this.state.labels.length === 0) {
+            this.stopGuessing();
             this.progressRound();
             const guessedLabels = this.state.guessedLabels.slice();
             guessedLabels.forEach((word) => {word.guessed = false;});
@@ -124,7 +125,7 @@ class Board extends React.Component {
         } else {
             let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} /><input type="button" value="Pass" onClick={this.passTop} /></div>;
             let instructions = <div className="instructions">{this.state.round > 0 && this.rounds[this.state.round - 1]}</div>;
-            let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} />;
+            let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} key={this.state.round} />;
             let guessedWords = <List words={this.state.guessedLabels} setup={this.state.setup} guessing={this.state.guessing} />;
 
             return (
