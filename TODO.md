@@ -1,2 +1,3 @@
 - don't allow pass in first round
 - nicer solution for counter reset
+- game should stop after round 4
