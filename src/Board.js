@@ -56,9 +56,9 @@ class Board extends React.Component {
     checkProgression() {
         if (this.state.labels.length === 0) {
             this.progressRound();
-            const labels = this.state.labels.slice();
             const guessedLabels = this.state.guessedLabels.slice();
-            this.setState({ labels: guessedLabels, guessedLabels: labels }, this.shuffle);
+            guessedLabels.forEach((word) => {word.guessed = false;});
+            this.setState({ labels: guessedLabels, guessedLabels: [] }, this.shuffle);
         }
     }
 

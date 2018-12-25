@@ -1,5 +1,4 @@
 - only show words if the round is active
 - only show current word
 - counter should stop if round ends
-- undo guessed after round progression
 - shuffle at start
