@@ -22,6 +22,7 @@ class Board extends React.Component {
             setup: true,
             guessing: false,
         }
+        this.labelsContains = this.labelsContains.bind(this);
         this.addLabel = this.addLabel.bind(this);
         this.checkProgression = this.checkProgression.bind(this);
         this.startGame = this.startGame.bind(this);
@@ -33,8 +34,19 @@ class Board extends React.Component {
         this.stopGuessing = this.stopGuessing.bind(this);
     }
 
+    labelsContains(name) {
+        let contains = false;
+        this.state.labels.forEach(word => {
+            if (word.name === name) {
+                contains = true;
+            }
+        });
+        return contains;
+    }
+
     addLabel(name) {
-        if (name !== "" && this.state.labels.indexOf(name) === -1) { // TODO duplicate check
+        name = name.trim();
+        if (name !== "" && !this.labelsContains(name)) {
             const labels = this.state.labels.slice();
             labels.push(new Word(name, false));
             this.setState({ labels: labels });
