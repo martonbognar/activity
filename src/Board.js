@@ -2,7 +2,7 @@ import React from 'react';
 
 import Word from './Word';
 import NameForm from './NameForm';
-import Label from './Label';
+import List from './List';
 import Countdown from './Countdown';
 
 class Board extends React.Component {
@@ -54,7 +54,6 @@ class Board extends React.Component {
     }
 
     checkProgression() {
-        console.log(this.state.labels.length);
         if (this.state.labels.length === 0) {
             this.progressRound();
             const labels = this.state.labels.slice();
@@ -111,7 +110,7 @@ class Board extends React.Component {
     }
 
     render() {
-        let words = <ul>{this.state.labels.map((element, index) => <Label key={element.name} word={element} />)}</ul>;
+        let words = <List words={this.state.labels} />;
 
         if (this.state.setup) {
             let controls = <div><NameForm callback={this.addLabel} /><input type="button" value="Start" onClick={this.startGame} /></div>;
@@ -126,7 +125,7 @@ class Board extends React.Component {
             let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} /><input type="button" value="Pass" onClick={this.passTop} /></div>;
             let instructions = <div className="instructions">{this.state.round > 0 && this.rounds[this.state.round - 1]}</div>;
             let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} />;
-            let guessedWords = <ul>{this.state.guessedLabels.map((element, index) => <Label key={element.name} word={element} />)}</ul>;
+            let guessedWords = <List words={this.state.guessedLabels} />;
 
             return (
                 <div>
