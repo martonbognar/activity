@@ -64,7 +64,7 @@ class Board extends React.Component {
 
     startGame() {
         if (this.state.labels.length !== 0) {
-            this.setState({ setup: false });
+            this.setState({ setup: false }, this.shuffle);
         }
     }
 
