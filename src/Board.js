@@ -62,7 +62,7 @@ class Board extends React.Component {
 
     checkProgression() {
         if (this.state.labels.length === 0) {
-            if (this.state.round == 4) {
+            if (this.state.round === 4) {
                 this.resetGame();
             } else {
                 this.stopGuessing();
