@@ -125,7 +125,7 @@ class Board extends React.Component {
         let words = <List words={this.state.labels} setup={this.state.setup} guessing={this.state.guessing} />;
 
         if (this.state.setup) {
-            let controls = <div><NameForm callback={this.addLabel} /><input type="button" value="Start" onClick={this.startGame} /></div>;
+            let controls = <div><NameForm callback={this.addLabel} /><input type="button" value="Start Game" onClick={this.startGame} /></div>;
 
             return (
                 <div>
@@ -134,7 +134,7 @@ class Board extends React.Component {
                 </div>
             );
         } else {
-            let pass = this.state.round !== 1 && <input type="button" value="Pass" onClick={this.passTop} />;
+            let pass = this.state.round !== 1 && <input type="button" value="Passed" onClick={this.passTop} />;
             let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} />{pass}</div>;
             let instructions = <div className="instructions">{this.state.round > 0 && this.rounds[this.state.round - 1]}</div>;
             let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} key={this.state.round} />;
@@ -142,9 +142,9 @@ class Board extends React.Component {
 
             return (
                 <div>
-                    {this.state.guessing && controls}
                     {instructions}
                     {countdown}
+                    {this.state.guessing && controls}
                     {words}
                     {guessedWords}
                 </div>

@@ -23,10 +23,10 @@ class NameForm extends React.Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+                    New word:&nbsp;
+                    <input type="text" value={this.state.value} onChange={this.handleChange} autoFocus />
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Add" />
             </form>
         );
     }
