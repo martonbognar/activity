@@ -123,7 +123,8 @@ class Board extends React.Component {
                 </div>
             );
         } else {
-            let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} /><input type="button" value="Pass" onClick={this.passTop} /></div>;
+            let pass = this.state.round !== 1 && <input type="button" value="Pass" onClick={this.passTop} />;
+            let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} />{pass}</div>;
             let instructions = <div className="instructions">{this.state.round > 0 && this.rounds[this.state.round - 1]}</div>;
             let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} key={this.state.round} />;
             let guessedWords = <List words={this.state.guessedLabels} setup={this.state.setup} guessing={this.state.guessing} />;
