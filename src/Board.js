@@ -13,15 +13,18 @@ class Board extends React.Component {
         "Negyedik kör egy póz",
     ];
 
+    initialState = {
+        labels: [],
+        guessedLabels: [],
+        round: 1,
+        setup: true,
+        guessing: false,
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            labels: [],
-            guessedLabels: [],
-            round: 1,
-            setup: true,
-            guessing: false,
-        }
+        this.state = this.initialState;
+        this.resetGame = this.resetGame.bind(this);
         this.labelsContains = this.labelsContains.bind(this);
         this.addLabel = this.addLabel.bind(this);
         this.checkProgression = this.checkProgression.bind(this);
@@ -32,6 +35,10 @@ class Board extends React.Component {
         this.passTop = this.passTop.bind(this);
         this.startGuessing = this.startGuessing.bind(this);
         this.stopGuessing = this.stopGuessing.bind(this);
+    }
+
+    resetGame() {
+        this.setState(this.initialState);
     }
 
     labelsContains(name) {
@@ -55,11 +62,15 @@ class Board extends React.Component {
 
     checkProgression() {
         if (this.state.labels.length === 0) {
-            this.stopGuessing();
-            this.progressRound();
-            const guessedLabels = this.state.guessedLabels.slice();
-            guessedLabels.forEach((word) => {word.guessed = false;});
-            this.setState({ labels: guessedLabels, guessedLabels: [] }, this.shuffle);
+            if (this.state.round == 4) {
+                this.resetGame();
+            } else {
+                this.stopGuessing();
+                this.progressRound();
+                const guessedLabels = this.state.guessedLabels.slice();
+                guessedLabels.forEach((word) => {word.guessed = false;});
+                this.setState({ labels: guessedLabels, guessedLabels: [] }, this.shuffle);
+            }
         }
     }
 

@@ -1,2 +1,1 @@
 - nicer solution for counter reset
-- game should stop after round 4
