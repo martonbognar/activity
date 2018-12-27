@@ -1,6 +1,7 @@
 # React
 
 - nicer solution for counter reset
+- i18n
 
 # Styling
 
