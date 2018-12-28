@@ -25,6 +25,8 @@ class Countdown extends React.Component {
             setTimeout(this.decreaseTime, 1000);
         } else {
             this.props.endCallback();
+            let audio = document.getElementById("warning");
+            audio.play();
             this.setState({ seconds: this.props.seconds, active: false });
         }
     }
@@ -32,7 +34,7 @@ class Countdown extends React.Component {
     render() {
         return (
             <div>
-                {!this.state.active && <input type="submit" value="Start" onClick={this.start} />} {this.state.seconds} seconds remaining.
+                {!this.state.active && <button className="btn btn-danger" type="button" onClick={this.start}>Start</button>}<p>{this.state.seconds} seconds remaining.</p>
             </div>
         );
     }

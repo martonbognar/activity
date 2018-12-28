@@ -22,11 +22,12 @@ class NameForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>
-                    New word:&nbsp;
-                    <input type="text" value={this.state.value} onChange={this.handleChange} autoFocus />
-                </label>
-                <input type="submit" value="Add" />
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="What should be guessed?" value={this.state.value} onChange={this.handleChange} autoFocus aria-describedby="add-button" />
+                    <div className="input-group-append">
+                        <button className="btn btn-outline-secondary" type="submit" id="add-button">Add</button>
+                    </div>
+                </div>
             </form>
         );
     }

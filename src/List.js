@@ -5,22 +5,23 @@ class List extends React.Component {
         let list = this.props.words.map((word, index) => {
             if (this.props.setup) {
                 // during setup, show all words
-                return <li key={word.name}>{word.name}</li>;
+                return <li className="list-group-item" key={word.name}>{word.name}</li>;
             } else {
                 if (word.guessed) {
                     // during the game, show all guessed words
-                    return <li key={word.name}><del>{word.name}</del></li>;
+                    return <li className="list-group-item disabled" key={word.name}>{word.name}</li>;
                 } else {
                     if (this.props.guessing && index === 0) {
                         // during the game, show only the top word from the active stack
-                        return <li key={word.name}>{word.name}</li>;
+                        return <li className="list-group-item active" key={word.name}>{word.name}</li>;
+                    } else {
+                        return <li className="list-group-item blurry" key={word.name}>{word.name}</li>;
                     }
                 }
             }
-            return null;
         });
         return (
-            <ul>
+            <ul className="list-group">
                 {list}
             </ul>
         );

@@ -4,6 +4,7 @@ import Word from './Word';
 import NameForm from './NameForm';
 import List from './List';
 import Countdown from './Countdown';
+import './index.css';
 
 class Board extends React.Component {
     rounds = [
@@ -68,7 +69,7 @@ class Board extends React.Component {
                 this.stopGuessing();
                 this.progressRound();
                 const guessedLabels = this.state.guessedLabels.slice();
-                guessedLabels.forEach((word) => {word.guessed = false;});
+                guessedLabels.forEach((word) => { word.guessed = false; });
                 this.setState({ labels: guessedLabels, guessedLabels: [] }, this.shuffle);
             }
         }
@@ -125,28 +126,51 @@ class Board extends React.Component {
         let words = <List words={this.state.labels} setup={this.state.setup} guessing={this.state.guessing} />;
 
         if (this.state.setup) {
-            let controls = <div><NameForm callback={this.addLabel} /><input type="button" value="Start Game" onClick={this.startGame} /></div>;
-
             return (
-                <div>
-                    {controls}
-                    {words}
+                <div className="container">
+                    <div className="row p-2">
+                        <div className="col">
+                            <h1>Add your list of words</h1>
+                            <NameForm callback={this.addLabel} />
+                            <button type="button" className="btn btn-primary" onClick={this.startGame}>Start Game</button>
+                        </div>
+                    </div>
+                    <div className="row p-2">
+                        <div className="col">
+                            {words}
+                        </div>
+                    </div>
                 </div>
             );
         } else {
-            let pass = this.state.round !== 1 && <input type="button" value="Passed" onClick={this.passTop} />;
-            let controls = <div><input type="button" value="Guessed" onClick={this.guessTop} />{pass}</div>;
-            let instructions = <div className="instructions">{this.state.round > 0 && this.rounds[this.state.round - 1]}</div>;
+            let pass = this.state.round !== 1 && <button className="btn btn-info m-1" type="button" onClick={this.passTop}>Passed</button>;
+            let controls = <div><button className="btn btn-success m-1" type="button" onClick={this.guessTop}>Guessed</button>{pass}</div>;
             let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} key={this.state.round} />;
             let guessedWords = <List words={this.state.guessedLabels} setup={this.state.setup} guessing={this.state.guessing} />;
 
             return (
-                <div>
-                    {instructions}
-                    {countdown}
-                    {this.state.guessing && controls}
-                    {words}
-                    {guessedWords}
+                <div className="container">
+                    <div className="row p-2">
+                        <div className="col">
+                            <p>{this.rounds[this.state.round - 1]}</p>
+                        </div>
+                    </div>
+                    <div className="row p-2">
+                        <div className="col">
+                            {this.state.guessing && controls}
+                            {countdown}
+                        </div>
+                    </div>
+                    <div className="row p-2">
+                        <div className="col">
+                            {words}
+                        </div>
+                    </div>
+                    <div className="row p-2">
+                        <div className="col">
+                            {guessedWords}
+                        </div>
+                    </div>
                 </div>
             );
         }
