@@ -12,3 +12,4 @@
 
 - favicon
 - manifest.json
+- cross-platform sound
