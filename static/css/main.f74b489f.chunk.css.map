@@ -1,0 +1,1 @@
+{"version":3,"sources":["/home/mici/programming/activity/src/index.css"],"names":[],"mappings":"AAAA,QACI,kBAAmB,AACnB,mCAAsC,CACzC","file":"main.f74b489f.chunk.css","sourcesContent":[".blurry {\n    color: transparent;\n    text-shadow: 0 0 10px rgba(0,0,0,0.5);\n}\n"]}
