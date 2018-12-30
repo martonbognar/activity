@@ -1,7 +1,6 @@
 # React
 
 - i18n
-- option to remove word during setup
 
 # Styling
 

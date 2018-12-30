@@ -28,6 +28,7 @@ class Board extends React.Component {
         this.resetGame = this.resetGame.bind(this);
         this.labelsContains = this.labelsContains.bind(this);
         this.addLabel = this.addLabel.bind(this);
+        this.removeLabel = this.removeLabel.bind(this);
         this.checkProgression = this.checkProgression.bind(this);
         this.startGame = this.startGame.bind(this);
         this.progressRound = this.progressRound.bind(this);
@@ -59,6 +60,12 @@ class Board extends React.Component {
             labels.push(new Word(name, false));
             this.setState({ labels: labels });
         }
+    }
+
+    removeLabel(index) {
+        let copy = this.state.labels.slice();
+        copy.splice(index, 1);
+        this.setState({ labels: copy });
     }
 
     checkProgression() {
@@ -123,7 +130,7 @@ class Board extends React.Component {
     }
 
     render() {
-        let words = <List words={this.state.labels} setup={this.state.setup} guessing={this.state.guessing} />;
+        let words = <List words={this.state.labels} setup={this.state.setup} guessing={this.state.guessing} remove={this.removeLabel} />;
 
         if (this.state.setup) {
             return (
