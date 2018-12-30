@@ -6,6 +6,7 @@ class Countdown extends React.Component {
         this.state = {
             seconds: props.seconds,
             active: false,
+            timeout: null,
         }
 
         this.start = this.start.bind(this);
@@ -14,15 +15,21 @@ class Countdown extends React.Component {
 
     start() {
         this.props.startCallback();
-        this.setState({ active: true });
-        setTimeout(this.decreaseTime, 1000);
+        let timeout = setTimeout(this.decreaseTime, 1000);
+        this.setState({ active: true, timeout: timeout });
+    }
+
+    componentWillUnmount() {
+        if (this.state.timeout) {
+            clearTimeout(this.state.timeout);
+        }
     }
 
     decreaseTime() {
         if (this.state.seconds !== 0) {
             let seconds = this.state.seconds - 1;
-            this.setState({ seconds: seconds });
-            setTimeout(this.decreaseTime, 1000);
+            let timeout = setTimeout(this.decreaseTime, 1000);
+            this.setState({ seconds: seconds, timeout: timeout });
         } else {
             this.props.endCallback();
             let audio = document.getElementById("warning");
