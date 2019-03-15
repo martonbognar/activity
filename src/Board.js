@@ -24,7 +24,15 @@ class Board extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = this.initialState;
+
+        let localStorageExists = typeof(Storage) !== 'undefined';
+
+        if (localStorageExists && localStorage.savedState) {
+            this.state = JSON.parse(localStorage.savedState);
+        } else {
+            this.state = this.initialState;
+        }
+
         this.resetGame = this.resetGame.bind(this);
         this.labelsContains = this.labelsContains.bind(this);
         this.addLabel = this.addLabel.bind(this);
@@ -37,10 +45,18 @@ class Board extends React.Component {
         this.passTop = this.passTop.bind(this);
         this.startGuessing = this.startGuessing.bind(this);
         this.stopGuessing = this.stopGuessing.bind(this);
+        this.saveState = this.saveState.bind(this);
+    }
+
+    saveState() {
+        // make a deep copy of the state
+        let copy = JSON.parse(JSON.stringify(this.state));
+        copy.guessing = false;
+        localStorage.savedState = JSON.stringify(copy);
     }
 
     resetGame() {
-        this.setState(this.initialState);
+        this.setState(this.initialState, this.saveState);
     }
 
     labelsContains(name) {
@@ -58,14 +74,14 @@ class Board extends React.Component {
         if (name !== "" && !this.labelsContains(name)) {
             const labels = this.state.labels.slice();
             labels.push(new Word(name, false));
-            this.setState({ labels: labels });
+            this.setState({ labels: labels }, this.saveState);
         }
     }
 
     removeLabel(index) {
         let copy = this.state.labels.slice();
         copy.splice(index, 1);
-        this.setState({ labels: copy });
+        this.setState({ labels: copy }, this.saveState);
     }
 
     checkProgression() {
@@ -79,6 +95,8 @@ class Board extends React.Component {
                 guessedLabels.forEach((word) => { word.guessed = false; });
                 this.setState({ labels: guessedLabels, guessedLabels: [] }, this.shuffle);
             }
+        } else {
+            this.saveState();
         }
     }
 
@@ -90,7 +108,7 @@ class Board extends React.Component {
 
     progressRound() {
         let round = this.state.round + 1;
-        this.setState({ round: round });
+        this.setState({ round: round }, this.saveState);
     }
 
     shuffle() {
@@ -101,7 +119,7 @@ class Board extends React.Component {
             labels[i] = labels[j];
             labels[j] = temp;
         }
-        this.setState({ labels: labels });
+        this.setState({ labels: labels }, this.saveState);
     }
 
     guessTop() {
@@ -117,16 +135,16 @@ class Board extends React.Component {
         const labels = this.state.labels.slice();
         const first = labels.shift();
         labels.push(first);
-        this.setState({ labels: labels });
+        this.setState({ labels: labels }, this.saveState);
     }
 
     startGuessing() {
-        this.setState({ guessing: true });
+        this.setState({ guessing: true }, this.saveState);
     }
 
     stopGuessing() {
         this.passTop();
-        this.setState({ guessing: false });
+        this.setState({ guessing: false }, this.saveState);
     }
 
     render() {
