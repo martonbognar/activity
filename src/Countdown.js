@@ -41,7 +41,7 @@ class Countdown extends React.Component {
     render() {
         return (
             <div>
-                {!this.state.active && <button className="btn btn-danger" type="button" onClick={this.start}>Start</button>}<p>{this.state.seconds} seconds remaining.</p>
+                {!this.state.active && <button className="btn btn-danger float-right" type="button" onClick={this.start}>Start</button>}<p>{this.state.seconds} seconds remaining.</p>
             </div>
         );
     }
