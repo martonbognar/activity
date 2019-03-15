@@ -14,23 +14,21 @@ class Board extends React.Component {
         "Negyedik kör egy póz",
     ];
 
-    initialState = {
-        labels: [],
-        guessedLabels: [],
-        round: 1,
-        setup: true,
-        guessing: false,
-    };
-
     constructor(props) {
         super(props);
 
-        let localStorageExists = typeof(Storage) !== 'undefined';
+        let localStorageExists = typeof (Storage) !== 'undefined';
 
         if (localStorageExists && localStorage.savedState) {
             this.state = JSON.parse(localStorage.savedState);
         } else {
-            this.state = this.initialState;
+            this.state = {
+                labels: [],
+                guessedLabels: [],
+                round: 1,
+                setup: true,
+                guessing: false,
+            };
         }
 
         this.resetGame = this.resetGame.bind(this);
@@ -56,7 +54,14 @@ class Board extends React.Component {
     }
 
     resetGame() {
-        this.setState(this.initialState, this.saveState);
+        let copy = this.state.guessedLabels.slice();
+        this.setState({
+            labels: copy,
+            guessedLabels: [],
+            round: 1,
+            setup: true,
+            guessing: false,
+        }, this.saveState);
     }
 
     labelsContains(name) {
