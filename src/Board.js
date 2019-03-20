@@ -54,7 +54,8 @@ class Board extends React.Component {
     }
 
     resetGame() {
-        let copy = this.state.guessedLabels.slice();
+        let copy = this.state.guessedLabels.slice().concat(this.state.labels.slice());
+        copy.forEach((word) => word.guessed = false);
         this.setState({
             labels: copy,
             guessedLabels: [],
@@ -199,6 +200,11 @@ class Board extends React.Component {
                     <div className="row p-2">
                         <div className="col">
                             {guessedWords}
+                        </div>
+                    </div>
+                    <div className="row p-2">
+                        <div className="col">
+                            <button className="btn btn-danger" onClick={this.resetGame}>Reset game</button>
                         </div>
                     </div>
                 </div>
