@@ -8,10 +8,10 @@ import './index.css';
 
 class Board extends React.Component {
     rounds = [
-        "Első kör nincs passz, akárhány tipp, mindent lehet, kivéve kimondani a keresett szót",
-        "Második körtől végig van passz, de csak egy tipp van, ha félre, akkor megy az aljára. Második körben max egy szó, mutogatás, hangutánzás bármennyi és mutogatás",
-        "Harmadik kör csak mutogatás",
-        "Negyedik kör egy póz",
+        <ul><li>You can talk or act as much as you want</li><li>You can not say the given word</li><li>The guessing player has unlimited guesses, but you cannot move on if they did not guess correctly</li></ul>,
+        <ul><li>From now on either you or the guessing player are allowed to pass, and move on to the next word</li><li>You can only say a single word</li><li>You can act</li><li>You can imitate sounds</li></ul>,
+        <ul><li>You can only act</li></ul>,
+        <ul><li>You can only do a single pose</li><li>The guessing player must cover his eyes while you're setting up; say a given word ("go!") when you have settled into the pose</li></ul>,
     ];
 
     constructor(props) {
@@ -175,7 +175,7 @@ class Board extends React.Component {
             );
         } else {
             let pass = this.state.round !== 1 && <button className="btn btn-info m-1" type="button" onClick={this.passTop}>Passed</button>;
-            let controls = <div><button className="btn btn-success m-1" type="button" onClick={this.guessTop}>Guessed</button>{pass}</div>;
+            let controls = <div><button className="btn btn-success" type="button" onClick={this.guessTop}>Guessed</button>{pass}</div>;
             let countdown = <Countdown seconds="30" startCallback={this.startGuessing} endCallback={this.stopGuessing} key={this.state.round} />;
             let guessedWords = <List words={this.state.guessedLabels} setup={this.state.setup} guessing={this.state.guessing} />;
 
@@ -183,7 +183,10 @@ class Board extends React.Component {
                 <div className="container">
                     <div className="row p-2">
                         <div className="col">
-                            <p>{this.rounds[this.state.round - 1]}</p>
+                            <div class="alert alert-info" role="alert">
+                                <h4 class="alert-heading">Round {this.state.round}</h4>
+                                <p>{this.rounds[this.state.round - 1]}</p>
+                            </div>
                         </div>
                     </div>
                     <div className="row p-2">
